@@ -1,0 +1,205 @@
+@font-face {
+  font-family: h1font;
+  src: url(font/scream-when-youre-ready-to-die-font/ScreamWhenYoureReadyToDieRegular-6AjD.ttf);
+}
+
+@font-face {
+  font-family: h2font;
+  src: url(font/a-goblin-appears-font/AGoblinAppears-o2aV.ttf);
+}
+
+@font-face {
+  font-family: generalText;
+  src: url(font/bittypix-monospace-font/BittypixMonospace-3gAG.ttf);
+}
+
+body {
+  margin: auto;
+  background-image: url(sprites/bg/BG3.png), url(sprites/bg/BG2.png),
+    url(sprites/bg/BG1.png);
+  background-position: 0 0, 0 0, 0 0;
+  background-size: 30em;
+  background-repeat: repeat-x;
+  background-color: #34355f;
+  animation: 100s background infinite linear;
+}
+
+h1 {
+  font-family: h1font, Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: auto;
+  font-size: 2em;
+}
+
+h2 {
+  color: white;
+  font-family: h2font, Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: auto;
+  font-size: 1em;
+  margin-bottom: 0.3em;
+}
+
+header {
+  margin: auto;
+  margin-top: 5em;
+  top: 0;
+  width: 100%;
+  color: white;
+
+  min-height: 15em;
+}
+
+main {
+  margin-bottom: 10em;
+}
+
+footer {
+  bottom: 0;
+  width: 100%;
+  position: fixed;
+  color: aqua;
+  background-color: #34355f;
+}
+
+#foreground-animation {
+  height: 10em;
+  background-image: url(sprites/bg/FG2.png);
+  background-size: 30em;
+  background-repeat: repeat-x;
+  background-position: bottom, bottom;
+  animation: 200s foreground infinite linear;
+  bottom: 0;
+}
+
+#game-container {
+  margin: auto;
+  min-width: 30em;
+  max-width: 100%;
+  display: flex;
+  row-gap: 1em;
+  column-gap: 1em;
+  height: 40vh;
+
+  justify-content: space-evenly;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+#payouts,
+#game-zone,
+#jukebox {
+  text-align: center;
+  min-width: 20em;
+  width: 20%;
+}
+
+#payouts {
+  background-color: #3b6b9c;
+  border: 1px solid;
+  border-radius: 5px;
+  border-color: #4e89c6;
+}
+
+#payouts table,
+#payouts tr,
+#payouts td {
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  font-size: 0.8em;
+  width: 75%;
+  margin: auto;
+  border-color: #4e89c6;
+  padding: 0.3em;
+}
+
+#jukebox-icons {
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  background-color: #3b6b9c;
+  border: 1px solid;
+  border-radius: 15px;
+  border-color: #4e89c6;
+  width: 100%;
+}
+
+#jukebox-display {
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #3b6b9c;
+  border: 1px solid;
+  border-radius: 15px;
+  border-color: #4e89c6;
+  margin-top: 0.5em;
+  width: 100%;
+}
+
+#bard-img img {
+  padding-left: 0.5em;
+  width: 70px;
+}
+
+#bard-text {
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-content: space-between;
+  margin-left: 0.3em;
+  text-align: left;
+  width: 70%;
+  font-size: 0.6em;
+}
+
+#bard-name {
+  font-weight: bold;
+}
+
+button {
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  background-color: #4f7942;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 0.5em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.5em;
+  margin: 2px;
+  cursor: pointer;
+  transition-duration: 0.5s;
+  box-shadow: 0 0.1em lightgrey;
+}
+
+button:hover {
+  background-color: slate;
+}
+
+button:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+button:active {
+  background-color: #4f7942;
+  box-shadow: 0 0.05em grey;
+  transition-duration: 0.2s;
+  transform: translateY(0.05em);
+}
+
+@keyframes background {
+  50% {
+    background-position: 200% 15%, 100% 10%, 50% 0%;
+  }
+  100% {
+    background-position: 400% 0%, 200% 0%, 100% 0%;
+  }
+}
+
+@keyframes foreground {
+  100% {
+    background-position: 100% bottom;
+  }
+}
