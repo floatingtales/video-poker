@@ -20,5 +20,11 @@ module.exports = {
     'no-console': 'off',
     // Allow function param reassign for array or object elements or properties
     'no-param-reassign': ['error', { props: false }],
+    // Allows refactoring of js without throwing "undefined" warnings
+    'no-undef': 'off',
+    // Allows to have unused vars.
+    'no-unused-vars': 'off',
+    // Idk this allows the usage of for in
+    'no-restricted-syntax': 'off',
   },
 };

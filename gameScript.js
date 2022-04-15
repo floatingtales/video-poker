@@ -15,13 +15,9 @@
  * ==================================================
  */
 
-let deck = {};
-
-const bardName = 'Etienne';
-
-let betAmount;
-
-const payouts = [
+// Game Constants
+const MAX_HAND_LENGTH = 5;
+const PAYOUTS = [
   { type: 'Royal Flush', multiplier: 800 },
   { type: 'Straight Flush', multiplier: 50 },
   { type: 'Four of a Kind', multiplier: 25 },
@@ -29,75 +25,396 @@ const payouts = [
   { type: 'Flush', multiplier: 6 },
   { type: 'Straight', multiplier: 4 },
   { type: 'Three of a Kind', multiplier: 3 },
-  { type: 'Two Pair', multiplier: 2 },
+  { type: 'Two Pairs', multiplier: 2 },
   { type: 'Jacks or Better', multiplier: 1 },
 ];
 
-const mainBlock = document.getElementsByTagName('main')[0];
+// Debug Hands
+const LOW_PAIR_HAND = [
+  {
+    name: 4,
+    rank: 4,
+    src: 'sprites/cards/card-spades-4.png',
+    suit: 'spades',
+    toSwap: false,
+  },
+  {
+    name: 4,
+    rank: 4,
+    src: 'sprites/cards/card-hearts-4.png',
+    suit: 'hearts',
+    toSwap: false,
+  },
+  {
+    name: 5,
+    rank: 5,
+    src: 'sprites/cards/card-hearts-5.png',
+    suit: 'hearts',
+    toSwap: false,
+  },
+  {
+    name: 3,
+    rank: 3,
+    src: 'sprites/cards/card-spades-3.png',
+    suit: 'spades',
+    toSwap: false,
+  }, {
+    name: 2,
+    rank: 2,
+    src: 'sprites/cards/card-clubs-2.png',
+    suit: 'clubs',
+    toSwap: false,
+  },
+];
+const HIGH_PAIR_HAND = [{
+  name: 'Jack',
+  rank: 11,
+  src: 'sprites/cards/card-spades-11.png',
+  suit: 'spades',
+  toSwap: false,
+},
+{
+  name: 'Jack',
+  rank: 11,
+  src: 'sprites/cards/card-hearts-11.png',
+  suit: 'hearts',
+  toSwap: false,
+},
+{
+  name: 5,
+  rank: 5,
+  src: 'sprites/cards/card-hearts-5.png',
+  suit: 'hearts',
+  toSwap: false,
+},
+{
+  name: 3,
+  rank: 3,
+  src: 'sprites/cards/card-spades-3.png',
+  suit: 'spades',
+  toSwap: false,
+}, {
+  name: 2,
+  rank: 2,
+  src: 'sprites/cards/card-clubs-2.png',
+  suit: 'clubs',
+  toSwap: false,
+}];
+const TWO_PAIR_HAND = [{
+  name: 4,
+  rank: 4,
+  src: 'sprites/cards/card-spades-4.png',
+  suit: 'spades',
+  toSwap: false,
+},
+{
+  name: 4,
+  rank: 4,
+  src: 'sprites/cards/card-hearts-4.png',
+  suit: 'hearts',
+  toSwap: false,
+},
+{
+  name: 5,
+  rank: 5,
+  src: 'sprites/cards/card-hearts-5.png',
+  suit: 'hearts',
+  toSwap: false,
+},
+{
+  name: 3,
+  rank: 3,
+  src: 'sprites/cards/card-spades-3.png',
+  suit: 'spades',
+  toSwap: false,
+}, {
+  name: 3,
+  rank: 3,
+  src: 'sprites/cards/card-clubs-3.png',
+  suit: 'clubs',
+  toSwap: false,
+}];
+const THREE_OF_A_KIND_HAND = [{
+  name: 4,
+  rank: 4,
+  src: 'sprites/cards/card-spades-4.png',
+  suit: 'spades',
+  toSwap: false,
+},
+{
+  name: 4,
+  rank: 4,
+  src: 'sprites/cards/card-hearts-4.png',
+  suit: 'hearts',
+  toSwap: false,
+},
+{
+  name: 5,
+  rank: 5,
+  src: 'sprites/cards/card-hearts-5.png',
+  suit: 'hearts',
+  toSwap: false,
+},
+{
+  name: 3,
+  rank: 3,
+  src: 'sprites/cards/card-spades-3.png',
+  suit: 'spades',
+  toSwap: false,
+}, {
+  name: 4,
+  rank: 4,
+  src: 'sprites/cards/card-clubs-4.png',
+  suit: 'clubs',
+  toSwap: false,
+}];
+const STRAIGHT_HAND = [{
+  name: 4,
+  rank: 4,
+  src: 'sprites/cards/card-spades-4.png',
+  suit: 'spades',
+  toSwap: false,
+},
+{
+  name: 6,
+  rank: 6,
+  src: 'sprites/cards/card-hearts-6.png',
+  suit: 'hearts',
+  toSwap: false,
+},
+{
+  name: 5,
+  rank: 5,
+  src: 'sprites/cards/card-hearts-5.png',
+  suit: 'hearts',
+  toSwap: false,
+},
+{
+  name: 3,
+  rank: 3,
+  src: 'sprites/cards/card-spades-3.png',
+  suit: 'spades',
+  toSwap: false,
+}, {
+  name: 2,
+  rank: 2,
+  src: 'sprites/cards/card-clubs-2.png',
+  suit: 'clubs',
+  toSwap: false,
+}];
+const FLUSH_HAND = [{
+  name: 4,
+  rank: 4,
+  src: 'sprites/cards/card-spades-4.png',
+  suit: 'spades',
+  toSwap: false,
+},
+{
+  name: 7,
+  rank: 7,
+  src: 'sprites/cards/card-spades-7.png',
+  suit: 'spades',
+  toSwap: false,
+},
+{
+  name: 10,
+  rank: 10,
+  src: 'sprites/cards/card-spades-10.png',
+  suit: 'spades',
+  toSwap: false,
+},
+{
+  name: 3,
+  rank: 3,
+  src: 'sprites/cards/card-spades-3.png',
+  suit: 'spades',
+  toSwap: false,
+}, {
+  name: 2,
+  rank: 2,
+  src: 'sprites/cards/card-spades-2.png',
+  suit: 'spades',
+  toSwap: false,
+}];
+const FULL_HOUSE_HAND = [{
+  name: 4,
+  rank: 4,
+  src: 'sprites/cards/card-spades-4.png',
+  suit: 'spades',
+  toSwap: false,
+},
+{
+  name: 4,
+  rank: 4,
+  src: 'sprites/cards/card-hearts-4.png',
+  suit: 'hearts',
+  toSwap: false,
+},
+{
+  name: 3,
+  rank: 3,
+  src: 'sprites/cards/card-hearts-3.png',
+  suit: 'hearts',
+  toSwap: false,
+},
+{
+  name: 3,
+  rank: 3,
+  src: 'sprites/cards/card-spades-3.png',
+  suit: 'spades',
+  toSwap: false,
+}, {
+  name: 3,
+  rank: 3,
+  src: 'sprites/cards/card-clubs-3.png',
+  suit: 'clubs',
+  toSwap: false,
+}];
+const FOUR_OF_A_KIND_HAND = [{
+  name: 4,
+  rank: 4,
+  src: 'sprites/cards/card-spades-4.png',
+  suit: 'spades',
+  toSwap: false,
+},
+{
+  name: 3,
+  rank: 3,
+  src: 'sprites/cards/card-diamonds-3.png',
+  suit: 'diamonds',
+  toSwap: false,
+},
+{
+  name: 3,
+  rank: 3,
+  src: 'sprites/cards/card-hearts-3.png',
+  suit: 'hearts',
+  toSwap: false,
+},
+{
+  name: 3,
+  rank: 3,
+  src: 'sprites/cards/card-spades-3.png',
+  suit: 'spades',
+  toSwap: false,
+}, {
+  name: 3,
+  rank: 3,
+  src: 'sprites/cards/card-clubs-3.png',
+  suit: 'clubs',
+  toSwap: false,
+}];
+const STRAIGHT_FLUSH_HAND = [{
+  name: 'Jack',
+  rank: 11,
+  src: 'sprites/cards/card-clubs-11.png',
+  suit: 'clubs',
+  toSwap: false,
+},
+{
+  name: 'King',
+  rank: 13,
+  src: 'sprites/cards/card-clubs-13.png',
+  suit: 'clubs',
+  toSwap: false,
+},
+{
+  name: 'Queen',
+  rank: 12,
+  src: 'sprites/cards/card-clubs-12.png',
+  suit: 'clubs',
+  toSwap: false,
+},
+{
+  name: 10,
+  rank: 10,
+  src: 'sprites/cards/card-clubs-10.png',
+  suit: 'clubs',
+  toSwap: false,
+}, {
+  name: 9,
+  rank: 9,
+  src: 'sprites/cards/card-clubs-9.png',
+  suit: 'clubs',
+  toSwap: false,
+}];
+const ROYAL_FLUSH_HAND = [{
+  name: 'Jack',
+  rank: 11,
+  src: 'sprites/cards/card-clubs-11.png',
+  suit: 'clubs',
+  toSwap: false,
+},
+{
+  name: 'King',
+  rank: 13,
+  src: 'sprites/cards/card-clubs-13.png',
+  suit: 'clubs',
+  toSwap: false,
+},
+{
+  name: 'Queen',
+  rank: 12,
+  src: 'sprites/cards/card-clubs-12.png',
+  suit: 'clubs',
+  toSwap: false,
+},
+{
+  name: 10,
+  rank: 10,
+  src: 'sprites/cards/card-clubs-10.png',
+  suit: 'clubs',
+  toSwap: false,
+}, {
+  name: 'Ace',
+  rank: 14,
+  src: 'sprites/cards/card-clubs-14.png',
+  suit: 'clubs',
+  toSwap: false,
+}];
+const FAUX_STRAIGHT_HAND = [{
+  name: 4,
+  rank: 4,
+  src: 'sprites/cards/card-spades-4.png',
+  suit: 'spades',
+  toSwap: false,
+},
+{
+  name: 6,
+  rank: 6,
+  src: 'sprites/cards/card-hearts-6.png',
+  suit: 'hearts',
+  toSwap: false,
+},
+{
+  name: 3,
+  rank: 3,
+  src: 'sprites/cards/card-hearts-3.png',
+  suit: 'hearts',
+  toSwap: false,
+},
+{
+  name: 3,
+  rank: 3,
+  src: 'sprites/cards/card-spades-3.png',
+  suit: 'spades',
+  toSwap: false,
+}, {
+  name: 2,
+  rank: 2,
+  src: 'sprites/cards/card-clubs-2.png',
+  suit: 'clubs',
+  toSwap: false,
+}];
 
-const mainContainer = document.createElement('div');
-mainContainer.id = 'game-container';
+// game global variables
+let deck;
+let currentGold;
+let wagerAmount;
+let isDealState;
+let currentHand;
 
-// payouts window divs
-const payoutDiv = document.createElement('div');
-payoutDiv.id = 'payouts';
-
-const payoutTitle = document.createElement('h2');
-payoutTitle.innerText = 'Payouts';
-
-// game zone divs
-const gameZone = document.createElement('div');
-gameZone.id = 'game-zone';
-
-const gameBoard = document.createElement('div');
-gameBoard.id = 'game-board';
-
-const addWagerBtn = document.createElement('button');
-addWagerBtn.innerText = '+1';
-
-const subtractWagerBtn = document.createElement('button');
-subtractWagerBtn.innerText = '-1';
-
-const wagerDisplay = document.createElement('div');
-
-// jukebox divs
-const jukebox = document.createElement('div');
-jukebox.id = 'jukebox';
-
-const jukeboxTitle = document.createElement('h2');
-jukeboxTitle.innerText = 'Bard\'s Tunes';
-
-const jukeboxIconsZone = document.createElement('div');
-jukeboxIconsZone.id = 'jukebox-icons';
-
-const jukeboxPlayBtn = document.createElement('button');
-jukeboxPlayBtn.innerText = 'Play a Tune!';
-
-const jukeboxPauseBtn = document.createElement('button');
-jukeboxPauseBtn.innerText = 'Halt it!';
-
-const jukeboxNextBtn = document.createElement('button');
-jukeboxNextBtn.innerText = 'Next tune!';
-
-const jukeboxDisplayZone = document.createElement('div');
-jukeboxDisplayZone.id = 'jukebox-display';
-
-const jukeboxBardDiv = document.createElement('div');
-jukeboxBardDiv.id = 'bard-img';
-
-const jukeboxBardImg = document.createElement('img');
-jukeboxBardImg.src = 'sprites/characters/bard2.png';
-
-const jukeboxBardTextDiv = document.createElement('div');
-jukeboxBardTextDiv.id = 'bard-text';
-
-const jukeboxBardName = document.createElement('div');
-jukeboxBardName.id = 'bard-name';
-jukeboxBardName.innerText = bardName;
-
-const jukeboxBardConvo = document.createElement('div');
-jukeboxBardConvo.id = 'bard-convo';
-jukeboxBardConvo.innerText = 'Now Playing ...';
+let isDebug;
 
 /**
  * ==================================================
@@ -120,36 +437,28 @@ const randomizeIndex = (max) => Math.floor(Math.random() * max);
  */
 const deckCreator = () => {
   const createdDeck = [];
-  const suits = ['Spades', 'Clubs', 'Hearts', 'Diamonds'];
-  const suitSymbols = ['♠', '♣', '♥', '♦'];
+  const suits = ['spades', 'clubs', 'hearts', 'diamonds'];
   for (let i = 0; i < suits.length; i += 1) {
     const currentSuit = suits[i];
-    const currentSymbol = suitSymbols[i];
-    const currentColour = i < 2 ? 'black' : 'red';
     for (let j = 1; j <= 13; j += 1) {
-      const currentRank = j;
+      let currentRank = j;
       let currentName = j;
-      let currentDisplayName = j;
       if (currentRank === 1) {
         currentName = 'Ace';
-        currentDisplayName = 'A';
+        currentRank = 14;
       } else if (currentRank === 11) {
         currentName = 'Jack';
-        currentDisplayName = 'J';
       } else if (currentRank === 12) {
         currentName = 'Queen';
-        currentDisplayName = 'Q';
       } else if (currentRank === 13) {
         currentName = 'King';
-        currentDisplayName = 'K';
       }
       const currentCard = {
         suit: currentSuit,
-        symbol: currentSymbol,
-        colour: currentColour,
         rank: currentRank,
         name: currentName,
-        displayName: currentDisplayName,
+        src: `sprites/cards/card-${currentSuit}-${currentRank}.png`,
+        toSwap: false,
       };
 
       createdDeck.push(currentCard);
@@ -175,83 +484,248 @@ const deckShuffler = (deckToShuffle) => {
 };
 
 /**
- * ==================================================
- * ==================================================
- * GAME/DOM FUNCTIONS
- * ==================================================
- * ==================================================
+ * takes the top 5 cards in deck and put it in hand
  */
-
-/**
- * recalculate and update the payout table
- */
-const updatePayout = () => {
-  payoutDiv.innerHTML = '';
-  payoutDiv.append(payoutTitle);
-
-  const payoutTable = document.createElement('table');
-
-  for (let i = 0; i < payouts.length; i += 1) {
-    const tableRow = document.createElement('tr');
-
-    const tablePayoutType = document.createElement('td');
-    tablePayoutType.innerText = payouts[i].type;
-
-    const tablePayoutMultiplier = document.createElement('td');
-    tablePayoutMultiplier.innerText = payouts[i].multiplier * betAmount;
-
-    tableRow.append(tablePayoutType, tablePayoutMultiplier);
-    payoutTable.append(tableRow);
+const initialDraw = () => {
+  const drawnHand = [];
+  while (drawnHand.length < MAX_HAND_LENGTH) {
+    drawnHand.push(deck.pop());
   }
-  payoutDiv.append(payoutTable);
+  return drawnHand;
 };
 
 /**
- * create jukebox function
+ * Find the minimum rank of a given card hand
+ * @param {array} handToCheck array of the card hand object
+ * @returns {number} the minimum rank of the given hand
  */
-const createJukebox = () => {
-  jukebox.innerHTML = '';
-  jukeboxBardTextDiv.append(jukeboxBardName, jukeboxBardConvo);
-  jukeboxBardDiv.append(jukeboxBardImg);
-  jukeboxDisplayZone.append(jukeboxBardDiv, jukeboxBardTextDiv);
-  jukeboxIconsZone.append(jukeboxTitle, jukeboxPauseBtn, jukeboxPlayBtn, jukeboxNextBtn);
-  jukebox.append(jukeboxIconsZone, jukeboxDisplayZone);
-};
-
-const createGameZone = () => {
-  gameZone.innerHTML = '';
-  wagerDisplay.innerHTML = betAmount;
-  gameZone.append(wagerDisplay, addWagerBtn, subtractWagerBtn);
+const findMinCard = (handToCheck) => {
+  let currentMin;
+  for (let i = 0; i < handToCheck.length; i += 1) {
+    if (currentMin === undefined) { currentMin = handToCheck[i].rank; }
+    if (handToCheck[i].rank < currentMin) { currentMin = handToCheck[i].rank; }
+  }
+  return currentMin;
 };
 
 /**
- * initialize the game
+ * Tally the rank of a given hand
+ * @param {array} handToCheck array of the card hand object
+ * @returns {object} the tallied rank as an object
  */
-const gameInit = () => {
-  deck = deckShuffler(deckCreator());
-  mainContainer.append(payoutDiv, gameZone, jukebox);
-  mainBlock.append(mainContainer);
-  console.log(deck);
-
-  betAmount = 1;
-
-  updatePayout();
-  createGameZone();
-  createJukebox();
+const tallyRank = (handToCheck) => {
+  const tally = {};
+  for (let i = 0; i < handToCheck.length; i += 1) {
+    const cardRank = handToCheck[i].rank;
+    if (cardRank in tally) { tally[cardRank] += 1; }
+    else { tally[cardRank] = 1; }
+  }
+  return tally;
 };
 
-gameInit();
+/**
+ * Tally the suit of a given hand
+ * @param {array} handToCheck array of the card hand object
+ * @returns {object} the tallied suit as an object
+ */
+const tallySuit = (handToCheck) => {
+  const tally = {};
+  for (let i = 0; i < handToCheck.length; i += 1) {
+    const cardSuit = handToCheck[i].suit;
+    if (cardSuit in tally) { tally[cardSuit] += 1; }
+    else { tally[cardSuit] = 1; }
+  }
+  return tally;
+};
 
-addWagerBtn.addEventListener('click', () => {
-  betAmount += 1;
-  if (betAmount > 5) { betAmount = 5; }
-  wagerDisplay.innerText = betAmount;
-  updatePayout();
-});
+/**
+ * Check to see if hand has a pair
+ * @param {array} handToCheck array of the card hand object
+ * @returns {boolean} True if a pair is present, false otherwise
+ */
+const checkPair = (handToCheck) => {
+  const handTally = tallyRank(handToCheck);
+  for (const cardRank in handTally) {
+    if (handTally[cardRank] === 2) return true;
+  }
+  return false;
+};
 
-subtractWagerBtn.addEventListener('click', () => {
-  betAmount -= 1;
-  if (betAmount < 1) { betAmount = 1; }
-  wagerDisplay.innerText = betAmount;
-  updatePayout();
-});
+/**
+ * Check to see if hand has a high pair (Jacks or Better)
+ * @param {array} handToCheck array of the card hand object
+ * @returns {boolean} True if a high pair is present, false otherwise
+ */
+const checkHighPair = (handToCheck) => {
+  const handTally = tallyRank(handToCheck);
+  for (const cardRank in handTally) {
+    if (handTally[cardRank] === 2 && cardRank > 10) return true;
+  }
+  return false;
+};
+
+/**
+ * Check to see if hand has two pairs
+ * @param {array} handToCheck array of the card hand object
+ * @returns {boolean} True if two pair is present, false otherwise
+ */
+const checkTwoPair = (handToCheck) => {
+  let counter = 0;
+  const handTally = tallyRank(handToCheck);
+  for (const cardRank in handTally) {
+    if (handTally[cardRank] === 2) {
+      counter += 1;
+      if (counter === 2) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
+
+/**
+ * Check to see if hand has three of a kind
+ * @param {array} handToCheck array of the card hand object
+ * @returns {boolean} True if a three of a kind is present, false otherwise
+ */
+const checkThreeOfAKind = (handToCheck) => {
+  const handTally = tallyRank(handToCheck);
+  for (const cardRank in handTally) {
+    if (handTally[cardRank] === 3) return true;
+  }
+  return false;
+};
+
+/**
+ * Check to see if hand has straight
+ * @param {array} handToCheck array of the card hand object
+ * @returns {boolean} True if a straight is present, false otherwise
+ */
+const checkStraight = (handToCheck) => {
+  const handTally = tallyRank(handToCheck);
+  console.log(handTally);
+  const handMinimumCardRank = findMinCard(handToCheck);
+  const handMaximumCardRank = handMinimumCardRank + 5;
+
+  let counter = 0;
+  for (const cardRank in handTally) {
+    if (cardRank >= handMinimumCardRank && cardRank < handMaximumCardRank) {
+      counter += 1;
+      if (counter === 5) { return true; }
+    }
+  }
+
+  return false;
+};
+
+/**
+ * Check to see if hand has flush
+ * @param {array} handToCheck array of the card hand object
+ * @returns {boolean} True if a flush is present, false otherwise
+ */
+const checkFlush = (handToCheck) => {
+  const handTally = tallySuit(handToCheck);
+  for (const cardSuit in handTally) {
+    if (handTally[cardSuit] === 5) return true;
+  }
+  return false;
+};
+
+/**
+ * Check to see if hand has full house
+ * @param {array} handToCheck array of the card hand object
+ * @returns {boolean} True if a full house is present, false otherwise
+ */
+const checkFullHouse = (handToCheck) => {
+  if (checkPair(handToCheck) && checkThreeOfAKind(handToCheck)) { return true; }
+  return false;
+};
+
+/**
+ * Check to see if hand has four of a kind
+ * @param {array} handToCheck array of the card hand object
+ * @returns {boolean} True if a four of a kind is present, false otherwise
+ */
+const checkFourOfAKind = (handToCheck) => {
+  const handTally = tallyRank(handToCheck);
+  for (const cardRank in handTally) {
+    if (handTally[cardRank] === 4) return true;
+  }
+  return false;
+};
+
+/**
+ * Check to see if hand has straight flush
+ * @param {array} handToCheck array of the card hand object
+ * @returns {boolean} True if a straight flush is present, false otherwise
+ */
+const checkStraightFlush = (handToCheck) => {
+  if (checkFlush(handToCheck) && checkStraight(handToCheck)) { return true; }
+  return false;
+};
+
+/**
+ * Check to see if hand has royal flush
+ * @param {array} handToCheck array of the card hand object
+ * @returns {boolean} True if a royal flush is present, false otherwise
+ */
+const checkRoyalFlush = (handToCheck) => {
+  const handMinimumCardRank = findMinCard(handToCheck);
+  if (checkStraightFlush(handToCheck) && handMinimumCardRank > 9) { return true; }
+  return false;
+};
+
+/**
+ * Check to see if there is a win in hand
+ * @param {array} handToCheck array of the card hand object
+ * @returns {number} index of the winning hand as defined in the payouts array, -1 if no win
+ */
+const checkWin = (handToCheck) => {
+  if (checkRoyalFlush(handToCheck)) {
+    console.log('hand is royal flush');
+    return 0;
+  }
+
+  if (checkStraightFlush(handToCheck)) {
+    console.log('hand is straight flush');
+    return 1;
+  }
+
+  if (checkFourOfAKind(handToCheck)) {
+    console.log('hand is four of a kind');
+    return 2;
+  }
+
+  if (checkFullHouse(handToCheck)) {
+    console.log('hand is full house');
+    return 3;
+  }
+
+  if (checkFlush(handToCheck)) {
+    console.log('hand is flush');
+    return 4;
+  }
+
+  if (checkStraight(handToCheck)) {
+    console.log('hand is straight');
+    return 5;
+  }
+
+  if (checkThreeOfAKind(handToCheck)) {
+    console.log('hand is three of a kind');
+    return 6;
+  }
+
+  if (checkTwoPair(handToCheck)) {
+    console.log('hand is two pair');
+    return 7;
+  }
+
+  if (checkHighPair(handToCheck)) {
+    console.log('hand is high pair');
+    return 8;
+  }
+
+  console.log('No Win');
+  return -1;
+};

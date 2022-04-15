@@ -10,7 +10,12 @@
 
 @font-face {
   font-family: generalText;
-  src: url(font/bittypix-monospace-font/BittypixMonospace-3gAG.ttf);
+  src: url(font/super-legend-boy-font/SuperLegendBoy-4w8Y.ttf);
+}
+
+@font-face {
+  font-family: convoText;
+  src: url(font/nineteen-ninety-six-font/NineteenNinetySix-lWzq.ttf);
 }
 
 body {
@@ -35,9 +40,12 @@ h2 {
   color: white;
   font-family: h2font, Arial, Helvetica, sans-serif;
   text-align: center;
+  font-weight: bold;
   margin: auto;
-  font-size: 1em;
-  margin-bottom: 0.3em;
+  margin-top: 1.25em;
+  font-size: 0.75em;
+  margin-bottom: 1em;
+  width: 100%;
 }
 
 header {
@@ -51,7 +59,7 @@ header {
 }
 
 main {
-  margin-bottom: 10em;
+  margin-bottom: 13em;
 }
 
 footer {
@@ -60,6 +68,48 @@ footer {
   position: fixed;
   color: aqua;
   background-color: #34355f;
+}
+
+button {
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  font-size: 0.8em;
+
+  background-color: #3b8e60;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 0.5em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+
+  margin: 2px;
+  margin-top: 0.5em;
+  cursor: pointer;
+  transition-duration: 0.5s;
+  box-shadow: 0 0.3em lightgrey;
+  margin-bottom: 1.25em;
+}
+
+button:hover {
+  background-color: slate;
+}
+
+button:disabled {
+  background-color: grey !important;
+  cursor: not-allowed;
+}
+
+button:active {
+  background-color: #295450;
+  box-shadow: 0 0.05em grey;
+  transition-duration: 0.2s;
+  transform: translateY(0.3em);
+}
+
+#deal-btn {
+  background-color: orange;
+  padding: 0.5em;
 }
 
 #foreground-animation {
@@ -91,13 +141,13 @@ footer {
 #jukebox {
   text-align: center;
   min-width: 20em;
-  width: 20%;
+  width: 27.5%;
 }
 
 #payouts {
   background-color: #3b6b9c;
   border: 1px solid;
-  border-radius: 5px;
+  border-radius: 15px;
   border-color: #4e89c6;
 }
 
@@ -105,14 +155,19 @@ footer {
 #payouts tr,
 #payouts td {
   font-family: generalText, Arial, Helvetica, sans-serif;
-  font-size: 0.8em;
+  font-size: 0.875em;
   width: 75%;
   margin: auto;
   border-color: #4e89c6;
   padding: 0.3em;
 }
 
-#jukebox-icons {
+#payouts table {
+  margin-bottom: 5px;
+}
+
+#jukebox-icons,
+#game-board {
   font-family: generalText, Arial, Helvetica, sans-serif;
   background-color: #3b6b9c;
   border: 1px solid;
@@ -121,7 +176,14 @@ footer {
   width: 100%;
 }
 
-#jukebox-display {
+#jukebox-icons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+#jukebox-display,
+#game-info {
   font-family: generalText, Arial, Helvetica, sans-serif;
   display: flex;
   flex-flow: row;
@@ -135,58 +197,68 @@ footer {
   width: 100%;
 }
 
-#bard-img img {
+#card-display,
+#game-interface {
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  padding-top: 0.5em;
+  margin: 0.3em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.card {
+  transform-style: preserve-3d;
+  transition: all 0.5s ease;
+}
+
+.card .card-face {
+  width: 55px;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.card .card-face img {
+  width: 55px;
+  animation: flipInY 0.5ms;
+}
+
+.isflipped {
+  transform: rotateY(180deg);
+}
+
+#bard-img img,
+#game-dealer img {
   padding-left: 0.5em;
   width: 70px;
 }
 
-#bard-text {
+#bard-text,
+#dealer-text {
   height: 70px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-content: space-between;
-  margin-left: 0.3em;
+  margin-left: 1em;
   text-align: left;
-  width: 70%;
-  font-size: 0.6em;
+  width: 80%;
 }
 
-#bard-name {
+#bard-name,
+#dealer-name {
   font-weight: bold;
 }
 
-button {
-  font-family: generalText, Arial, Helvetica, sans-serif;
-  background-color: #4f7942;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  padding: 0.5em;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 0.5em;
-  margin: 2px;
-  cursor: pointer;
-  transition-duration: 0.5s;
-  box-shadow: 0 0.1em lightgrey;
+#bard-convo,
+#dealer-convo {
+  font-family: convoText, Arial, Helvetica, sans-serif;
+  font-size: 1em;
 }
 
-button:hover {
-  background-color: slate;
-}
-
-button:disabled {
-  background-color: grey;
-  cursor: not-allowed;
-}
-
-button:active {
-  background-color: #4f7942;
-  box-shadow: 0 0.05em grey;
-  transition-duration: 0.2s;
-  transform: translateY(0.05em);
+.convo-char {
+  opacity: 0;
 }
 
 @keyframes background {
