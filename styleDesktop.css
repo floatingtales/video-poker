@@ -1,21 +1,26 @@
 @font-face {
   font-family: h1font;
-  src: url(font/scream-when-youre-ready-to-die-font/ScreamWhenYoureReadyToDieRegular-6AjD.ttf);
+  src: url(font/ScreamWhenYoureReadyToDieRegular-6AjD.ttf);
 }
 
 @font-face {
   font-family: h2font;
-  src: url(font/a-goblin-appears-font/AGoblinAppears-o2aV.ttf);
+  src: url(font/AGoblinAppears-o2aV.ttf);
 }
 
 @font-face {
   font-family: generalText;
-  src: url(font/super-legend-boy-font/SuperLegendBoy-4w8Y.ttf);
+  src: url(font/SuperLegendBoy-4w8Y.ttf);
 }
 
 @font-face {
   font-family: convoText;
-  src: url(font/nineteen-ninety-six-font/NineteenNinetySix-lWzq.ttf);
+  src: url(font/NineteenNinetySix-lWzq.ttf);
+}
+
+:root {
+  --animate-duration: 1s;
+  --animate-delay: 0.9s;
 }
 
 body {
@@ -221,11 +226,6 @@ button:active {
 
 .card .card-face img {
   width: 55px;
-  animation: flipInY 0.5ms;
-}
-
-.isflipped {
-  transform: rotateY(180deg);
 }
 
 #bard-img img,

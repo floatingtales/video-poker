@@ -11,6 +11,7 @@
 const DEALER_MSG_SPEED = 15;
 const BARD_MSG_SPEED = 20;
 const DEAL_DELAY_SPEED = 5000;
+const REMOVE_ANIMATE_DURATION = 1000;
 
 // Text constants
 const BARD_NAME = 'Etienne';
@@ -223,6 +224,11 @@ const createCardZone = () => {
 
     cardElement.append(cardBack);
     gameBoardcardDisplay.append(cardElement);
+
+    cardBack.classList.add('animate__animated', 'animate__flipInY');
+    setTimeout(() => {
+      cardBack.classList.remove('animate__animated', 'animate__flipInY');
+    }, REMOVE_ANIMATE_DURATION);
   }
 };
 
@@ -267,6 +273,11 @@ const gameInit = () => {
   createJukebox();
 };
 
+/**
+ * Sets the text of the replay message
+ * @param {number} winAmount the amount of gold the player wins
+ * @returns {string} the replay message
+ */
 const setReplayMessage = (winAmount) => {
   if (winAmount === undefined) {
     return DEALER_REPLAY_MSG;
@@ -274,6 +285,11 @@ const setReplayMessage = (winAmount) => {
   return `${DEALER_GIVE_MONEY_START_MSG} ${winAmount} ${DEALER_GIVE_MONEY_END_MSG}`;
 };
 
+/**
+ * Reveals text of a div one by one, for dialog purposes
+ * @param {Array} characterArray array of all the characters in the dialog
+ * @param {number} messageSpeed the speed in ms the character speaks
+ */
 const revealCharacters = (characterArray, messageSpeed) => {
   // take first character from array
   const nextChar = characterArray.splice(0, 1)[0];
@@ -288,6 +304,10 @@ const revealCharacters = (characterArray, messageSpeed) => {
   }
 };
 
+/**
+ * Updates the dealer convo text
+ * @param {string} message the message to be shown on the dealer dialog box
+ */
 const updateDealerConvo = (message) => {
   gameDealerConvo.innerHTML = '';
   const characterArray = [];
@@ -301,7 +321,12 @@ const updateDealerConvo = (message) => {
   revealCharacters(characterArray, DEALER_MSG_SPEED);
 };
 
-const updateBardConvo = (message) => { jukeboxBardConvo.innerHTML = '';
+/**
+ * Updates the dealer convo text
+ * @param {string} message the message to be shown on the bard dialog box
+ */
+const updateBardConvo = (message) => {
+  jukeboxBardConvo.innerHTML = '';
   const characterArray = [];
   message.split('').forEach((character) => {
     const msgCharacter = document.createElement('span');
@@ -313,17 +338,26 @@ const updateBardConvo = (message) => { jukeboxBardConvo.innerHTML = '';
   revealCharacters(characterArray, BARD_MSG_SPEED);
 };
 
+/**
+ * Handles card click: toggles the card toSwap status, with some animations
+ * @param {number} index the index of the card selected
+ * @returns {null}
+ */
 const handleCardClick = (index) => {
   const currentCardDiv = document.getElementsByClassName('card-face');
   if (!currentHand[index].toSwap) {
     currentCardDiv[index].src = CARD_BACK;
     currentHand[index].toSwap = true;
     updateDealerConvo('Don\'t like that one?');
+    currentCardDiv[index].classList.add('animate__animated', 'animate__flipInY');
+    setTimeout(() => currentCardDiv[index].classList.remove('animate__animated', 'animate__flipInY'), REMOVE_ANIMATE_DURATION);
     return;
   }
   updateDealerConvo('Changed your mind?');
   currentCardDiv[index].src = currentHand[index].src;
   currentHand[index].toSwap = false;
+  currentCardDiv[index].classList.add('animate__animated', 'animate__flipInY');
+  setTimeout(() => currentCardDiv[index].classList.remove('animate__animated', 'animate__flipInY'), REMOVE_ANIMATE_DURATION);
 };
 
 /**
@@ -363,7 +397,6 @@ dealSwapBtn.addEventListener('click', () => {
     // game manipulation
     deck = deckShuffler(deckCreator());
     currentHand = initialDraw();
-    console.log(currentHand);
 
     currentGold -= wagerAmount;
     isDealState = false;
@@ -372,7 +405,9 @@ dealSwapBtn.addEventListener('click', () => {
     const displayCards = document.getElementsByClassName('card-face');
     for (let i = 0; i < displayCards.length; i += 1) {
       displayCards[i].src = currentHand[i].src;
+      displayCards[i].classList.add('animate__animated', 'animate__flipInY');
       displayCards[i].addEventListener('click', () => handleCardClick(i));
+      setTimeout(() => displayCards[i].classList.remove('animate__animated', 'animate__flipInY'), REMOVE_ANIMATE_DURATION);
     }
 
     // player input UI
@@ -389,7 +424,10 @@ dealSwapBtn.addEventListener('click', () => {
 
   // game manipulation
   for (let i = 0; i < currentHand.length; i += 1) {
-    if (currentHand[i].toSwap) { currentHand.splice(i, 1, deck.pop()); }
+    if (currentHand[i].toSwap) {
+      currentHand.splice(i, 1, deck.pop());
+      currentHand[i].isChanged = true;
+    }
   }
 
   const winState = checkWin(currentHand);
@@ -415,7 +453,11 @@ dealSwapBtn.addEventListener('click', () => {
   // UI manipulation
   const displayCards = document.getElementsByClassName('card-face');
   for (let i = 0; i < displayCards.length; i += 1) {
-    displayCards[i].src = currentHand[i].src;
+    if (currentHand[i].isChanged) {
+      displayCards[i].src = currentHand[i].src;
+      displayCards[i].classList.add('animate__animated', 'animate__flipInY');
+      setTimeout(() => displayCards[i].classList.remove('animate__animated', 'animate__flipInY'), REMOVE_ANIMATE_DURATION);
+    }
     displayCards[i].replaceWith(displayCards[i].cloneNode());
   }
   dealSwapBtn.disabled = true;
@@ -428,6 +470,12 @@ dealSwapBtn.addEventListener('click', () => {
     dealSwapBtn.innerText = DEAL_MSG;
     dealSwapBtn.disabled = false;
     isDealState = true;
+
+    for (let i = 0; i < displayCards.length; i += 1) {
+      displayCards[i].src = CARD_BACK;
+      displayCards[i].classList.add('animate__animated', 'animate__flipInY');
+      setTimeout(() => displayCards[i].classList.remove('animate__animated', 'animate__flipInY'), REMOVE_ANIMATE_DURATION);
+    }
   }, DEAL_DELAY_SPEED);
 });
 

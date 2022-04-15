@@ -37,6 +37,7 @@ const LOW_PAIR_HAND = [
     src: 'sprites/cards/card-spades-4.png',
     suit: 'spades',
     toSwap: false,
+    isChanged: false,
   },
   {
     name: 4,
@@ -44,6 +45,7 @@ const LOW_PAIR_HAND = [
     src: 'sprites/cards/card-hearts-4.png',
     suit: 'hearts',
     toSwap: false,
+    isChanged: false,
   },
   {
     name: 5,
@@ -51,6 +53,7 @@ const LOW_PAIR_HAND = [
     src: 'sprites/cards/card-hearts-5.png',
     suit: 'hearts',
     toSwap: false,
+    isChanged: false,
   },
   {
     name: 3,
@@ -58,12 +61,14 @@ const LOW_PAIR_HAND = [
     src: 'sprites/cards/card-spades-3.png',
     suit: 'spades',
     toSwap: false,
+    isChanged: false,
   }, {
     name: 2,
     rank: 2,
     src: 'sprites/cards/card-clubs-2.png',
     suit: 'clubs',
     toSwap: false,
+    isChanged: false,
   },
 ];
 const HIGH_PAIR_HAND = [{
@@ -72,6 +77,7 @@ const HIGH_PAIR_HAND = [{
   src: 'sprites/cards/card-spades-11.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 'Jack',
@@ -79,6 +85,7 @@ const HIGH_PAIR_HAND = [{
   src: 'sprites/cards/card-hearts-11.png',
   suit: 'hearts',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 5,
@@ -86,6 +93,7 @@ const HIGH_PAIR_HAND = [{
   src: 'sprites/cards/card-hearts-5.png',
   suit: 'hearts',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 3,
@@ -93,12 +101,14 @@ const HIGH_PAIR_HAND = [{
   src: 'sprites/cards/card-spades-3.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 }, {
   name: 2,
   rank: 2,
   src: 'sprites/cards/card-clubs-2.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 }];
 const TWO_PAIR_HAND = [{
   name: 4,
@@ -106,6 +116,7 @@ const TWO_PAIR_HAND = [{
   src: 'sprites/cards/card-spades-4.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 4,
@@ -113,6 +124,7 @@ const TWO_PAIR_HAND = [{
   src: 'sprites/cards/card-hearts-4.png',
   suit: 'hearts',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 5,
@@ -120,6 +132,7 @@ const TWO_PAIR_HAND = [{
   src: 'sprites/cards/card-hearts-5.png',
   suit: 'hearts',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 3,
@@ -127,12 +140,14 @@ const TWO_PAIR_HAND = [{
   src: 'sprites/cards/card-spades-3.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 }, {
   name: 3,
   rank: 3,
   src: 'sprites/cards/card-clubs-3.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 }];
 const THREE_OF_A_KIND_HAND = [{
   name: 4,
@@ -140,6 +155,7 @@ const THREE_OF_A_KIND_HAND = [{
   src: 'sprites/cards/card-spades-4.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 4,
@@ -147,6 +163,7 @@ const THREE_OF_A_KIND_HAND = [{
   src: 'sprites/cards/card-hearts-4.png',
   suit: 'hearts',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 5,
@@ -154,6 +171,7 @@ const THREE_OF_A_KIND_HAND = [{
   src: 'sprites/cards/card-hearts-5.png',
   suit: 'hearts',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 3,
@@ -161,12 +179,14 @@ const THREE_OF_A_KIND_HAND = [{
   src: 'sprites/cards/card-spades-3.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 }, {
   name: 4,
   rank: 4,
   src: 'sprites/cards/card-clubs-4.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 }];
 const STRAIGHT_HAND = [{
   name: 4,
@@ -174,6 +194,7 @@ const STRAIGHT_HAND = [{
   src: 'sprites/cards/card-spades-4.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 6,
@@ -181,6 +202,7 @@ const STRAIGHT_HAND = [{
   src: 'sprites/cards/card-hearts-6.png',
   suit: 'hearts',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 5,
@@ -188,6 +210,7 @@ const STRAIGHT_HAND = [{
   src: 'sprites/cards/card-hearts-5.png',
   suit: 'hearts',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 3,
@@ -195,12 +218,14 @@ const STRAIGHT_HAND = [{
   src: 'sprites/cards/card-spades-3.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 }, {
   name: 2,
   rank: 2,
   src: 'sprites/cards/card-clubs-2.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 }];
 const FLUSH_HAND = [{
   name: 4,
@@ -208,6 +233,7 @@ const FLUSH_HAND = [{
   src: 'sprites/cards/card-spades-4.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 7,
@@ -215,6 +241,7 @@ const FLUSH_HAND = [{
   src: 'sprites/cards/card-spades-7.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 10,
@@ -222,6 +249,7 @@ const FLUSH_HAND = [{
   src: 'sprites/cards/card-spades-10.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 3,
@@ -229,12 +257,14 @@ const FLUSH_HAND = [{
   src: 'sprites/cards/card-spades-3.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 }, {
   name: 2,
   rank: 2,
   src: 'sprites/cards/card-spades-2.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 }];
 const FULL_HOUSE_HAND = [{
   name: 4,
@@ -242,6 +272,7 @@ const FULL_HOUSE_HAND = [{
   src: 'sprites/cards/card-spades-4.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 4,
@@ -249,6 +280,7 @@ const FULL_HOUSE_HAND = [{
   src: 'sprites/cards/card-hearts-4.png',
   suit: 'hearts',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 3,
@@ -256,6 +288,7 @@ const FULL_HOUSE_HAND = [{
   src: 'sprites/cards/card-hearts-3.png',
   suit: 'hearts',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 3,
@@ -263,12 +296,14 @@ const FULL_HOUSE_HAND = [{
   src: 'sprites/cards/card-spades-3.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 }, {
   name: 3,
   rank: 3,
   src: 'sprites/cards/card-clubs-3.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 }];
 const FOUR_OF_A_KIND_HAND = [{
   name: 4,
@@ -276,6 +311,7 @@ const FOUR_OF_A_KIND_HAND = [{
   src: 'sprites/cards/card-spades-4.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 3,
@@ -283,6 +319,7 @@ const FOUR_OF_A_KIND_HAND = [{
   src: 'sprites/cards/card-diamonds-3.png',
   suit: 'diamonds',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 3,
@@ -290,6 +327,7 @@ const FOUR_OF_A_KIND_HAND = [{
   src: 'sprites/cards/card-hearts-3.png',
   suit: 'hearts',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 3,
@@ -297,12 +335,14 @@ const FOUR_OF_A_KIND_HAND = [{
   src: 'sprites/cards/card-spades-3.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 }, {
   name: 3,
   rank: 3,
   src: 'sprites/cards/card-clubs-3.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 }];
 const STRAIGHT_FLUSH_HAND = [{
   name: 'Jack',
@@ -310,6 +350,7 @@ const STRAIGHT_FLUSH_HAND = [{
   src: 'sprites/cards/card-clubs-11.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 'King',
@@ -317,6 +358,7 @@ const STRAIGHT_FLUSH_HAND = [{
   src: 'sprites/cards/card-clubs-13.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 'Queen',
@@ -324,6 +366,7 @@ const STRAIGHT_FLUSH_HAND = [{
   src: 'sprites/cards/card-clubs-12.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 10,
@@ -331,12 +374,14 @@ const STRAIGHT_FLUSH_HAND = [{
   src: 'sprites/cards/card-clubs-10.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 }, {
   name: 9,
   rank: 9,
   src: 'sprites/cards/card-clubs-9.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 }];
 const ROYAL_FLUSH_HAND = [{
   name: 'Jack',
@@ -344,6 +389,7 @@ const ROYAL_FLUSH_HAND = [{
   src: 'sprites/cards/card-clubs-11.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 'King',
@@ -351,6 +397,7 @@ const ROYAL_FLUSH_HAND = [{
   src: 'sprites/cards/card-clubs-13.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 'Queen',
@@ -358,6 +405,7 @@ const ROYAL_FLUSH_HAND = [{
   src: 'sprites/cards/card-clubs-12.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 10,
@@ -365,12 +413,14 @@ const ROYAL_FLUSH_HAND = [{
   src: 'sprites/cards/card-clubs-10.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 }, {
   name: 'Ace',
   rank: 14,
   src: 'sprites/cards/card-clubs-14.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 }];
 const FAUX_STRAIGHT_HAND = [{
   name: 4,
@@ -378,6 +428,7 @@ const FAUX_STRAIGHT_HAND = [{
   src: 'sprites/cards/card-spades-4.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 6,
@@ -385,6 +436,7 @@ const FAUX_STRAIGHT_HAND = [{
   src: 'sprites/cards/card-hearts-6.png',
   suit: 'hearts',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 3,
@@ -392,6 +444,7 @@ const FAUX_STRAIGHT_HAND = [{
   src: 'sprites/cards/card-hearts-3.png',
   suit: 'hearts',
   toSwap: false,
+  isChanged: false,
 },
 {
   name: 3,
@@ -399,12 +452,14 @@ const FAUX_STRAIGHT_HAND = [{
   src: 'sprites/cards/card-spades-3.png',
   suit: 'spades',
   toSwap: false,
+  isChanged: false,
 }, {
   name: 2,
   rank: 2,
   src: 'sprites/cards/card-clubs-2.png',
   suit: 'clubs',
   toSwap: false,
+  isChanged: false,
 }];
 
 // game global variables
@@ -459,6 +514,7 @@ const deckCreator = () => {
         name: currentName,
         src: `sprites/cards/card-${currentSuit}-${currentRank}.png`,
         toSwap: false,
+        isChanged: false,
       };
 
       createdDeck.push(currentCard);
@@ -603,7 +659,6 @@ const checkThreeOfAKind = (handToCheck) => {
  */
 const checkStraight = (handToCheck) => {
   const handTally = tallyRank(handToCheck);
-  console.log(handTally);
   const handMinimumCardRank = findMinCard(handToCheck);
   const handMaximumCardRank = handMinimumCardRank + 5;
 
@@ -681,51 +736,23 @@ const checkRoyalFlush = (handToCheck) => {
  * @returns {number} index of the winning hand as defined in the payouts array, -1 if no win
  */
 const checkWin = (handToCheck) => {
-  if (checkRoyalFlush(handToCheck)) {
-    console.log('hand is royal flush');
-    return 0;
-  }
+  if (checkRoyalFlush(handToCheck)) { return 0; }
 
-  if (checkStraightFlush(handToCheck)) {
-    console.log('hand is straight flush');
-    return 1;
-  }
+  if (checkStraightFlush(handToCheck)) { return 1; }
 
-  if (checkFourOfAKind(handToCheck)) {
-    console.log('hand is four of a kind');
-    return 2;
-  }
+  if (checkFourOfAKind(handToCheck)) { return 2; }
 
-  if (checkFullHouse(handToCheck)) {
-    console.log('hand is full house');
-    return 3;
-  }
+  if (checkFullHouse(handToCheck)) { return 3; }
 
-  if (checkFlush(handToCheck)) {
-    console.log('hand is flush');
-    return 4;
-  }
+  if (checkFlush(handToCheck)) { return 4; }
 
-  if (checkStraight(handToCheck)) {
-    console.log('hand is straight');
-    return 5;
-  }
+  if (checkStraight(handToCheck)) { return 5; }
 
-  if (checkThreeOfAKind(handToCheck)) {
-    console.log('hand is three of a kind');
-    return 6;
-  }
+  if (checkThreeOfAKind(handToCheck)) { return 6; }
 
-  if (checkTwoPair(handToCheck)) {
-    console.log('hand is two pair');
-    return 7;
-  }
+  if (checkTwoPair(handToCheck)) { return 7; }
 
-  if (checkHighPair(handToCheck)) {
-    console.log('hand is high pair');
-    return 8;
-  }
+  if (checkHighPair(handToCheck)) { return 8; }
 
-  console.log('No Win');
   return -1;
 };
