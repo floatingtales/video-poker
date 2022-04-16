@@ -53,6 +53,8 @@ const BARD_SONG_ARRAY = [
   { title: 'Serenity', src: 'audio/jukebox/serenity.ogg' },
   { title: 'Village Jester', src: 'audio/jukebox/village-jester.ogg' },
 ];
+const DEALER_VOICE_AUDIO_SRC = 'audio/character/dealer.mp3';
+const BARD_VOICE_AUDIO_SRC = 'audio/character/dealer.mp3';
 
 // html elements
 // header block
@@ -178,10 +180,10 @@ footerAnimation.id = 'foreground-animation';
 const jukeboxAudio = document.createElement('audio');
 
 const dealerAudio = document.createElement('audio');
-dealerAudio.src = 'audio/character/dealer.mp3';
+dealerAudio.src = DEALER_VOICE_AUDIO_SRC;
 
 const bardAudio = document.createElement('audio');
-bardAudio.src = 'audio/character/bard.mp3';
+bardAudio.src = BARD_VOICE_AUDIO_SRC;
 
 /**
  * ==================================================
