@@ -28,7 +28,7 @@ body {
   background-image: url(sprites/bg/BG3.png), url(sprites/bg/BG2.png),
     url(sprites/bg/BG1.png);
   background-position: 0 0, 0 0, 0 0;
-  background-size: 30em;
+  background-size: 22em;
   background-repeat: repeat-x;
   background-color: #34355f;
   animation: 100s background infinite linear;
@@ -60,7 +60,7 @@ header {
   width: 100%;
   color: white;
 
-  min-height: 15em;
+  min-height: 11em;
 }
 
 main {
