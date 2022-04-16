@@ -54,7 +54,7 @@ const BARD_SONG_ARRAY = [
   { title: 'Village Jester', src: 'audio/jukebox/village-jester.ogg' },
 ];
 const DEALER_VOICE_AUDIO_SRC = 'audio/character/dealer.mp3';
-const BARD_VOICE_AUDIO_SRC = 'audio/character/dealer.mp3';
+const BARD_VOICE_AUDIO_SRC = 'audio/character/bard.mp3';
 
 // html elements
 // header block
