@@ -25,8 +25,10 @@ const SUBTRACT_WAGER_MSG = 'Don\'t want to part with too much gold eh?';
 const CANT_SUBTRACT_WAGER_MSG = 'Can\'t play if you don\'t bet, adventurer!';
 const ADD_WAGER_MSG = 'Feeling lucky, adventurer?';
 const CANT_ADD_WAGER_MSG = 'Can\'t bet any more than this, adventurer!';
-const DEALER_DEAL_MSG = 'Pick a card to swap, adventurer';
-const DEALER_LOSE_MSG = 'Aww shucks! I\'ll take that gold from you now';
+const DONT_HAVE_MONEY_MSG = 'Can\'t bet what you don\'t have, adventurer!';
+const LOST_ALL_MONEY_MSG = 'That\'s too bad adventurer! Come back another time!';
+const DEALER_DEAL_MSG = 'Pick a card to swap, adventurer!';
+const DEALER_LOSE_MSG = 'Aww shucks! I\'ll take that gold from you now!';
 const DEALER_WIN_BIG_MSG = 'Can\'t send my daughter to potion school now!';
 const DEALER_WIN_MED_MSG = 'Ugh that hurts my poor pockets!';
 const DEALER_WIN_SMOL_MSG = 'You\'ve got good luck, adventurer!';
@@ -395,6 +397,10 @@ addWagerBtn.addEventListener('click', () => {
     wagerAmount = 5;
     updateDealerConvo(CANT_ADD_WAGER_MSG);
   }
+  if (wagerAmount > currentGold) {
+    wagerAmount -= 1;
+    updateDealerConvo(DONT_HAVE_MONEY_MSG);
+  }
   wagerDisplay.innerText = wagerAmount;
   updatePayout();
 });
@@ -483,14 +489,19 @@ dealSwapBtn.addEventListener('click', () => {
   dealSwapBtn.disabled = true;
 
   setTimeout(() => {
+    wagerAmount = 1;
+    wagerDisplay.innerText = wagerAmount;
     updateDealerConvo(setReplayMessage(winAmt));
     goldDisplay.innerHTML = currentGold;
-    addWagerBtn.disabled = false;
-    subtractWagerBtn.disabled = false;
     dealSwapBtn.innerText = DEAL_MSG;
-    dealSwapBtn.disabled = false;
-    isDealState = true;
-
+    if (currentGold <= 0) {
+      updateDealerConvo(LOST_ALL_MONEY_MSG);
+    } else {
+      addWagerBtn.disabled = false;
+      subtractWagerBtn.disabled = false;
+      dealSwapBtn.disabled = false;
+      isDealState = true;
+    }
     for (let i = 0; i < displayCards.length; i += 1) {
       displayCards[i].src = CARD_BACK;
       displayCards[i].classList.add('animate__animated', 'animate__flipInY');
