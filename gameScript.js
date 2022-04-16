@@ -468,6 +468,7 @@ let currentGold;
 let wagerAmount;
 let isDealState;
 let currentHand;
+let currentSong;
 
 let isDebug;
 

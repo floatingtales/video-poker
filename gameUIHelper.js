@@ -10,7 +10,7 @@
 
 const DEALER_MSG_SPEED = 15;
 const BARD_MSG_SPEED = 20;
-const DEAL_DELAY_SPEED = 5000;
+const DEAL_DELAY_SPEED = 3000;
 const REMOVE_ANIMATE_DURATION = 1000;
 
 // Text constants
@@ -44,6 +44,13 @@ const GOLD_IMAGE = 'sprites/characters/gold.png';
 const DEALER_IMAGE = 'sprites/characters/dealer.png';
 const BARD_IMAGE = 'sprites/characters/bard2.png';
 const CARD_BACK = 'sprites/cards/card-back3.png';
+
+// audio source & title array
+const BARD_SONG_ARRAY = [
+  { title: 'Kiloph\'s Theme', src: 'audio/jukebox/kiloph-theme.ogg' },
+  { title: 'Serenity', src: 'audio/jukebox/serenity.ogg' },
+  { title: 'Village Jester', src: 'audio/jukebox/village-jester.ogg' },
+];
 
 // html elements
 // header block
@@ -165,6 +172,15 @@ footerDiv.innerText = 'lorem ipsum yada yaada';
 const footerAnimation = document.createElement('div');
 footerAnimation.id = 'foreground-animation';
 
+// audio block
+const jukeboxAudio = document.createElement('audio');
+
+const dealerAudio = document.createElement('audio');
+dealerAudio.src = 'audio/character/dealer.mp3';
+
+const bardAudio = document.createElement('audio');
+bardAudio.src = 'audio/character/bard.mp3';
+
 /**
  * ==================================================
  * ==================================================
@@ -267,6 +283,7 @@ const gameInit = () => {
   isDealState = true;
   isDebug = false;
   dealSwapBtn.innerText = DEAL_MSG;
+  currentSong = 0;
 
   updatePayout();
   createGameZone();
@@ -310,6 +327,7 @@ const revealCharacters = (characterArray, messageSpeed) => {
  */
 const updateDealerConvo = (message) => {
   gameDealerConvo.innerHTML = '';
+  dealerAudio.play();
   const characterArray = [];
   message.split('').forEach((character) => {
     const msgCharacter = document.createElement('span');
@@ -327,6 +345,7 @@ const updateDealerConvo = (message) => {
  */
 const updateBardConvo = (message) => {
   jukeboxBardConvo.innerHTML = '';
+  bardAudio.play();
   const characterArray = [];
   message.split('').forEach((character) => {
     const msgCharacter = document.createElement('span');
@@ -417,7 +436,8 @@ dealSwapBtn.addEventListener('click', () => {
     dealSwapBtn.innerText = SWAP_MSG;
 
     // message board UI
-    gameDealerConvo.innerText = DEALER_DEAL_MSG;
+    updateDealerConvo(DEALER_DEAL_MSG);
+
     return;
   }
   // if swap state
@@ -437,11 +457,11 @@ dealSwapBtn.addEventListener('click', () => {
     updateDealerConvo(DEALER_LOSE_MSG);
   }
   else if (winState < 3) {
-    updateDealerConvo(DEALER_WIN_BIG_MSG);
+    updateDealerConvo(`A ${PAYOUTS[winState].type}! ${DEALER_WIN_BIG_MSG}`);
   } else if (winState < 6) {
-    updateDealerConvo(DEALER_WIN_MED_MSG);
+    updateDealerConvo(`A ${PAYOUTS[winState].type}! ${DEALER_WIN_MED_MSG}`);
   } else {
-    updateDealerConvo(DEALER_WIN_SMOL_MSG);
+    updateDealerConvo(`A ${PAYOUTS[winState].type}! ${DEALER_WIN_SMOL_MSG}`);
   }
 
   let winAmt;
