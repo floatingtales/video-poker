@@ -12,6 +12,7 @@ const DEALER_MSG_SPEED = 15;
 const BARD_MSG_SPEED = 20;
 const DEAL_DELAY_SPEED = 3000;
 const REMOVE_ANIMATE_DURATION = 1000;
+const BARD_TIMEOUT_DURATION = 3000;
 
 // Text constants
 const BARD_NAME = 'Etienne';
@@ -37,14 +38,23 @@ const DEALER_GIVE_MONEY_START_MSG = 'Here\'s your';
 const DEALER_GIVE_MONEY_END_MSG = 'gold, fancy another round?';
 
 const BARD_GREETING = 'Any tunes, adventurer?';
+const BARD_PAUSE_MSG = 'Understood, adventurer.';
+const BARD_NEXT_MSG = 'This next tune is titled';
+const BARD_PLAY_MSG = '♪';
 
 const DEAL_MSG = 'Deal!';
 const SWAP_MSG = 'Swap!';
 
 // Image Source constants
-const GOLD_IMAGE = 'sprites/characters/gold.png';
+const LINKEDIN_IMAGE = 'sprites/icons/linkedin.png';
+const GITHUB_IMAGE = 'sprites/icons/github.png';
+const DISCORD_IMAGE = 'sprites/icons/discord.png';
+
+const GOLD_IMAGE = 'sprites/icons/gold.png';
+
 const DEALER_IMAGE = 'sprites/characters/dealer.png';
 const BARD_IMAGE = 'sprites/characters/bard2.png';
+
 const CARD_BACK = 'sprites/cards/card-back3.png';
 
 // audio source & title array
@@ -55,6 +65,45 @@ const BARD_SONG_ARRAY = [
 ];
 const DEALER_VOICE_AUDIO_SRC = 'audio/character/dealer.mp3';
 const BARD_VOICE_AUDIO_SRC = 'audio/character/bard.mp3';
+
+// credits array
+const CREDITS_ARRAY = [
+  {
+    text: 'Fonts by ',
+    linkText: 'Chequered Ink',
+    href: 'https://chequered.ink/',
+  },
+  {
+    text: 'Foreground by ',
+    linkText: 'Namatnieks',
+    href: 'https://aamatniekss.itch.io/',
+  },
+  {
+    text: 'Background by ',
+    linkText: 'Trixie',
+    href: 'https://trixelized.itch.io',
+  },
+  {
+    text: 'Background Audio by ',
+    linkText: 'JP Soundworks',
+    href: 'https://www.youtube.com/c/JPSoundworks/',
+  },
+  {
+    text: 'Additional Audio by ',
+    linkText: 'Omegaosg',
+    href: 'https://omegaosg.itch.io/',
+  },
+  {
+    text: 'Icons and Character Sprites by ',
+    linkText: 'Ocean\'s Dream',
+    href: 'https://oceansdream.itch.io/',
+  },
+  {
+    text: 'Icons and Playing Cards by ',
+    linkText: 'Caz',
+    href: 'https://cazwolf.itch.io/',
+  },
+];
 
 // html elements
 // header block
@@ -143,6 +192,7 @@ jukeboxPlayBtn.innerText = 'Play a Tune!';
 
 const jukeboxPauseBtn = document.createElement('button');
 jukeboxPauseBtn.innerText = 'Halt it!';
+jukeboxPauseBtn.disabled = true;
 
 const jukeboxNextBtn = document.createElement('button');
 jukeboxNextBtn.innerText = 'Next tune!';
@@ -178,6 +228,8 @@ footerAnimation.id = 'foreground-animation';
 
 // audio block
 const jukeboxAudio = document.createElement('audio');
+jukeboxAudio.loop = true;
+jukeboxAudio.volume = 0.3;
 
 const dealerAudio = document.createElement('audio');
 dealerAudio.src = DEALER_VOICE_AUDIO_SRC;
@@ -192,6 +244,14 @@ bardAudio.src = BARD_VOICE_AUDIO_SRC;
  * ==================================================
  * ==================================================
  */
+
+/**
+ * updates jukebox music
+ */
+const updateMusic = () => {
+  jukeboxAudio.src = BARD_SONG_ARRAY[currentSongIndex].src;
+  currentSongTitle = BARD_SONG_ARRAY[currentSongIndex].title;
+};
 
 /**
  * recalculate and update the payout table
@@ -269,6 +329,22 @@ const createGameZone = () => {
   gameZone.append(gameBoard, gameInfoDisplay);
 };
 
+const createFooter = () => {
+  for (let i = 0; i < CREDITS_ARRAY.length; i += 1) {
+    const creditDiv = document.createElement('div');
+    creditDiv.classList.add('credits');
+    const creditSpan = document.createElement('span');
+    const creditLink = document.createElement('a');
+
+    creditSpan.innerText = CREDITS_ARRAY[i].text;
+    creditLink.innerText = CREDITS_ARRAY[i].linkText;
+    creditLink.href = CREDITS_ARRAY[i].href;
+
+    creditDiv.append(creditSpan, creditLink);
+    footerAnimation.appendChild(creditDiv);
+  }
+};
+
 /**
  * initialize the game
  */
@@ -287,11 +363,13 @@ const gameInit = () => {
   isDealState = true;
   isDebug = false;
   dealSwapBtn.innerText = DEAL_MSG;
-  currentSong = 0;
+  currentSongIndex = 0;
 
   updatePayout();
   createGameZone();
   createJukebox();
+  updateMusic();
+  createFooter();
 };
 
 /**
@@ -492,6 +570,7 @@ dealSwapBtn.addEventListener('click', () => {
 
   setTimeout(() => {
     wagerAmount = 1;
+    updatePayout();
     wagerDisplay.innerText = wagerAmount;
     updateDealerConvo(setReplayMessage(winAmt));
     goldDisplay.innerHTML = currentGold;
@@ -512,11 +591,35 @@ dealSwapBtn.addEventListener('click', () => {
   }, DEAL_DELAY_SPEED);
 });
 
-jukeboxPlayBtn.addEventListener('click', () => { updateBardConvo('Play btn'); });
+jukeboxPlayBtn.addEventListener('click', () => {
+  updateBardConvo(`${BARD_PLAY_MSG} ${currentSongTitle} ${BARD_PLAY_MSG}`);
+  jukeboxPlayBtn.disabled = true;
+  jukeboxPauseBtn.disabled = false;
+  jukeboxAudio.play();
+});
 
-jukeboxPauseBtn.addEventListener('click', () => { updateBardConvo('Pause btn'); });
+jukeboxPauseBtn.addEventListener('click', () => {
+  updateBardConvo(BARD_PAUSE_MSG);
+  jukeboxPlayBtn.disabled = false;
+  jukeboxPauseBtn.disabled = true;
+  jukeboxAudio.pause();
+});
 
-jukeboxNextBtn.addEventListener('click', () => { updateBardConvo('Next btn'); });
+jukeboxNextBtn.addEventListener('click', () => {
+  jukeboxPlayBtn.disabled = true;
+  jukeboxPauseBtn.disabled = false;
+
+  updateBardConvo(`${BARD_NEXT_MSG} ${currentSongTitle}`);
+  currentSongIndex += 1;
+  if (currentSongIndex > BARD_SONG_ARRAY.length - 1) { currentSongIndex = 0; }
+  jukeboxAudio.pause();
+  updateMusic();
+  updateBardConvo(`${BARD_NEXT_MSG} ${currentSongTitle}`);
+  jukeboxAudio.play();
+  setTimeout(() => {
+    updateBardConvo(`${BARD_PLAY_MSG} ${currentSongTitle} ${BARD_PLAY_MSG}`);
+  }, BARD_TIMEOUT_DURATION);
+});
 
 window.addEventListener('keydown', (event) => {
   if (event.key === '/') {

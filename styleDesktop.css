@@ -64,14 +64,13 @@ header {
 }
 
 main {
-  margin-bottom: 13em;
+  margin-bottom: 9em;
 }
 
 footer {
   bottom: 0;
   width: 100%;
   position: fixed;
-  color: aqua;
   background-color: #34355f;
 }
 
@@ -112,19 +111,44 @@ button:active {
   transform: translateY(0.3em);
 }
 
+a:link {
+  text-decoration: none;
+  color: white;
+}
+a:visited {
+  text-decoration: none;
+  color: white;
+}
+a:hover {
+  text-decoration: none;
+  color: cyan;
+}
+a:active {
+  text-decoration: none;
+  color: cyan;
+}
+
 #deal-btn {
   background-color: orange;
   padding: 0.5em;
 }
 
 #foreground-animation {
-  height: 10em;
+  display: flex;
+  flex-flow: column-reverse;
+  height: 7em;
   background-image: url(sprites/bg/FG2.png);
-  background-size: 30em;
+  background-size: 20em;
   background-repeat: repeat-x;
   background-position: bottom, bottom;
   animation: 200s foreground infinite linear;
   bottom: 0;
+}
+
+#foreground-animation .credits {
+  color: white;
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  font-size: 0.5em;
 }
 
 #game-container {
