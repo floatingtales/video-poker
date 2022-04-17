@@ -28,10 +28,11 @@ body {
   background-image: url(sprites/bg/BG3.png), url(sprites/bg/BG2.png),
     url(sprites/bg/BG1.png);
   background-position: 0 0, 0 0, 0 0;
-  background-size: 22em;
+  background-size: 25vh;
   background-repeat: repeat-x;
   background-color: #34355f;
   animation: 100s background infinite linear;
+  height: 25vh;
 }
 
 h1 {
@@ -55,23 +56,24 @@ h2 {
 
 header {
   margin: auto;
-  margin-top: 5em;
+  height: 25vh;
+  display: flex;
+  justify-content: center;
   top: 0;
   width: 100%;
   color: white;
-
-  min-height: 11em;
 }
 
 main {
-  margin-bottom: 9em;
+  height: 50vh;
 }
 
 footer {
+  height: 22vh;
   bottom: 0;
   width: 100%;
-  position: fixed;
   background-color: #34355f;
+  float: bottom;
 }
 
 button {
@@ -128,6 +130,17 @@ a:active {
   color: cyan;
 }
 
+#socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#socials a {
+  margin: 0.5em;
+  border-bottom: 0.5em black;
+}
+
 #deal-btn {
   background-color: orange;
   padding: 0.5em;
@@ -135,10 +148,11 @@ a:active {
 
 #foreground-animation {
   display: flex;
-  flex-flow: column-reverse;
-  height: 7em;
+  flex-direction: column;
+  justify-content: end;
+  height: 20vh;
   background-image: url(sprites/bg/FG2.png);
-  background-size: 20em;
+  background-size: 50vh;
   background-repeat: repeat-x;
   background-position: bottom, bottom;
   animation: 200s foreground infinite linear;
@@ -149,18 +163,19 @@ a:active {
   color: white;
   font-family: generalText, Arial, Helvetica, sans-serif;
   font-size: 0.5em;
+  margin-left: 1em;
+  margin-bottom: 0.5em;
 }
 
 #game-container {
   margin: auto;
-  min-width: 30em;
   max-width: 100%;
   display: flex;
   row-gap: 1em;
   column-gap: 1em;
   height: 40vh;
 
-  justify-content: space-evenly;
+  justify-content: center;
   flex-flow: row wrap;
   align-items: center;
 }
@@ -170,7 +185,11 @@ a:active {
 #jukebox {
   text-align: center;
   min-width: 20em;
-  width: 27.5%;
+  width: 20%;
+}
+
+#game-zone {
+  width: 32.5%;
 }
 
 #payouts {
@@ -215,7 +234,7 @@ a:active {
 #game-info {
   font-family: generalText, Arial, Helvetica, sans-serif;
   display: flex;
-  flex-flow: row;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   background-color: #3b6b9c;
@@ -237,19 +256,13 @@ a:active {
   align-items: center;
 }
 
-.card {
-  transform-style: preserve-3d;
-  transition: all 0.5s ease;
-}
-
 .card .card-face {
-  width: 55px;
+  width: 60px;
   height: 100%;
-  backface-visibility: hidden;
 }
 
 .card .card-face img {
-  width: 55px;
+  width: 100%;
 }
 
 #bard-img img,

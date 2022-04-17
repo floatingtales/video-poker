@@ -46,9 +46,11 @@ const DEAL_MSG = 'Deal!';
 const SWAP_MSG = 'Swap!';
 
 // Image Source constants
-const LINKEDIN_IMAGE = 'sprites/icons/linkedin.png';
-const GITHUB_IMAGE = 'sprites/icons/github.png';
-const DISCORD_IMAGE = 'sprites/icons/discord.png';
+const SOCIALS = [
+  { png: 'sprites/icons/discord.png', href: 'https://discord.gg/theodinproject' },
+  { png: 'sprites/icons/github.png', href: 'https://github.com/floatingtales' },
+  { png: 'sprites/icons/linkedin.png', href: '#' },
+];
 
 const GOLD_IMAGE = 'sprites/icons/gold.png';
 
@@ -221,7 +223,7 @@ jukeboxBardConvo.innerText = BARD_GREETING;
 const footerBlock = document.createElement('footer');
 
 const footerDiv = document.createElement('div');
-footerDiv.innerText = 'lorem ipsum yada yaada';
+footerDiv.id = 'socials';
 
 const footerAnimation = document.createElement('div');
 footerAnimation.id = 'foreground-animation';
@@ -330,6 +332,18 @@ const createGameZone = () => {
 };
 
 const createFooter = () => {
+  for (let i = 0; i < SOCIALS.length; i += 1) {
+    const socialsDiv = document.createElement('img');
+    socialsDiv.classList.add('socials');
+    const socialsIcons = document.createElement('img');
+    const socialsLink = document.createElement('a');
+
+    socialsIcons.src = SOCIALS[i].png;
+    socialsLink.href = SOCIALS[i].href;
+
+    socialsLink.append(socialsIcons);
+    footerDiv.append(socialsLink);
+  }
   for (let i = 0; i < CREDITS_ARRAY.length; i += 1) {
     const creditDiv = document.createElement('div');
     creditDiv.classList.add('credits');

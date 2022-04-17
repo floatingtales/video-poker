@@ -1,16 +1,26 @@
 @font-face {
   font-family: h1font;
-  src: url(font/scream-when-youre-ready-to-die-font/ScreamWhenYoureReadyToDieRegular-6AjD.ttf);
+  src: url(font/ScreamWhenYoureReadyToDieRegular-6AjD.ttf);
 }
 
 @font-face {
   font-family: h2font;
-  src: url(font/a-goblin-appears-font/AGoblinAppears-o2aV.ttf);
+  src: url(font/AGoblinAppears-o2aV.ttf);
 }
 
 @font-face {
   font-family: generalText;
-  src: url(font/bittypix-monospace-font/BittypixMonospace-3gAG.ttf);
+  src: url(font/SuperLegendBoy-4w8Y.ttf);
+}
+
+@font-face {
+  font-family: convoText;
+  src: url(font/NineteenNinetySix-lWzq.ttf);
+}
+
+:root {
+  --animate-duration: 1s;
+  --animate-delay: 0.9s;
 }
 
 body {
@@ -18,10 +28,11 @@ body {
   background-image: url(sprites/bg/BG3.png), url(sprites/bg/BG2.png),
     url(sprites/bg/BG1.png);
   background-position: 0 0, 0 0, 0 0;
-  background-size: 30em;
+  background-size: 25vh;
   background-repeat: repeat-x;
   background-color: #34355f;
-  animation: 100s para infinite linear;
+  animation: 100s background infinite linear;
+  height: 15vh;
 }
 
 h1 {
@@ -35,54 +46,132 @@ h2 {
   color: white;
   font-family: h2font, Arial, Helvetica, sans-serif;
   text-align: center;
+  font-weight: bold;
   margin: auto;
+  margin-top: 0.5em;
   font-size: 1em;
   margin-bottom: 0.3em;
+  width: 100%;
 }
 
 header {
   margin: auto;
-  margin-top: 5em;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
   top: 0;
   width: 100%;
   color: white;
-
-  min-height: 15em;
 }
 
 main {
-  margin-bottom: 10em;
+  margin-top: 5vh;
 }
 
 footer {
+  height: 15vh;
   bottom: 0;
   width: 100%;
-  position: fixed;
-  color: aqua;
   background-color: #34355f;
 }
 
+button {
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  font-size: 0.8em;
+
+  background-color: #3b8e60;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 0.5em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+
+  margin: 2px;
+  margin-top: 0.5em;
+  cursor: pointer;
+  transition-duration: 0.5s;
+  box-shadow: 0 0.3em lightgrey;
+  margin-bottom: 1.25em;
+}
+
+button:hover {
+  background-color: slate;
+}
+
+button:disabled {
+  background-color: grey !important;
+  cursor: not-allowed;
+}
+
+button:active {
+  background-color: #295450;
+  box-shadow: 0 0.05em grey;
+  transition-duration: 0.2s;
+  transform: translateY(0.3em);
+}
+
+a:link {
+  text-decoration: none;
+  color: white;
+}
+a:visited {
+  text-decoration: none;
+  color: white;
+}
+a:hover {
+  text-decoration: none;
+  color: cyan;
+}
+a:active {
+  text-decoration: none;
+  color: cyan;
+}
+
+#socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#socials a {
+  margin: 0.5em;
+  border-bottom: 0.5em black;
+}
+
+#deal-btn {
+  background-color: orange;
+  padding: 0.5em;
+}
+
 #foreground-animation {
-  height: 10em;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: end;
+  height: 20vh;
   background-image: url(sprites/bg/FG2.png);
-  background-size: 30em;
+  background-size: 50vh;
   background-repeat: repeat-x;
   background-position: bottom, bottom;
   animation: 200s foreground infinite linear;
   bottom: 0;
 }
 
+#foreground-animation .credits {
+  color: white;
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  font-size: 0.5em;
+  margin-left: 1em;
+  margin-bottom: 0.5em;
+}
+
 #game-container {
   margin: auto;
-  min-width: 5em;
-  max-width: 100%;
+  width: 75vw;
   display: flex;
 
-  column-gap: 1em;
-
-  align-items: center;
-  align-content: center;
-  align-self: center;
   justify-content: center;
   flex-flow: column wrap;
   min-height: 60vh;
@@ -91,12 +180,10 @@ footer {
 #payouts,
 #game-zone,
 #jukebox {
-  margin: auto;
-  align-content: center;
-  align-self: center;
   text-align: center;
-  min-width: 20em;
-  width: 30%;
+
+  width: 100%;
+  margin-top: 0.5em;
 }
 
 #payouts {
@@ -110,14 +197,20 @@ footer {
 #payouts tr,
 #payouts td {
   font-family: generalText, Arial, Helvetica, sans-serif;
-  font-size: 0.8em;
+  font-size: 0.875em;
   width: 75%;
   margin: auto;
   border-color: #4e89c6;
   padding: 0.3em;
 }
 
-#jukebox-icons {
+#payouts table {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+#jukebox-icons,
+#game-board {
   font-family: generalText, Arial, Helvetica, sans-serif;
   background-color: #3b6b9c;
   border: 1px solid;
@@ -126,12 +219,19 @@ footer {
   width: 100%;
 }
 
-#jukebox-display {
+#jukebox-icons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+#jukebox-display,
+#game-info {
   font-family: generalText, Arial, Helvetica, sans-serif;
   display: flex;
-  flex-flow: row;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   background-color: #3b6b9c;
   border: 1px solid;
   border-radius: 15px;
@@ -140,12 +240,34 @@ footer {
   width: 100%;
 }
 
-#bard-img img {
+#card-display,
+#game-interface {
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  padding-top: 0.5em;
+  margin: 0.3em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.card .card-face {
+  width: 60px;
+  height: 100%;
+}
+
+.card .card-face img {
+  width: 100%;
+}
+
+#bard-img img,
+#game-dealer img {
   padding-left: 0.5em;
   width: 70px;
 }
 
-#bard-text {
+#bard-text,
+#dealer-text {
   height: 70px;
   display: flex;
   flex-direction: column;
@@ -157,44 +279,23 @@ footer {
   font-size: 0.6em;
 }
 
-#bard-name {
+#bard-name,
+#dealer-name {
   font-weight: bold;
+  font-size: 1.5em;
 }
 
-button {
-  font-family: generalText, Arial, Helvetica, sans-serif;
-  background-color: #4f7942;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  padding: 0.5em;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 0.5em;
-  margin: 2px;
-  cursor: pointer;
-  transition-duration: 0.5s;
-  box-shadow: 0 0.1em lightgrey;
+#bard-convo,
+#dealer-convo {
+  font-family: convoText, Arial, Helvetica, sans-serif;
+  font-size: 1.5em;
 }
 
-button:hover {
-  background-color: slate;
+.convo-char {
+  opacity: 0;
 }
 
-button:disabled {
-  background-color: grey;
-  cursor: not-allowed;
-}
-
-button:active {
-  background-color: #4f7942;
-  box-shadow: 0 0.05em grey;
-  transition-duration: 0.2s;
-  transform: translateY(0.05em);
-}
-
-@keyframes para {
+@keyframes background {
   50% {
     background-position: 200% 5%, 100% 2.5%, 50% 0%;
   }

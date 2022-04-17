@@ -1,0 +1,311 @@
+@font-face {
+  font-family: h1font;
+  src: url(font/ScreamWhenYoureReadyToDieRegular-6AjD.ttf);
+}
+
+@font-face {
+  font-family: h2font;
+  src: url(font/AGoblinAppears-o2aV.ttf);
+}
+
+@font-face {
+  font-family: generalText;
+  src: url(font/SuperLegendBoy-4w8Y.ttf);
+}
+
+@font-face {
+  font-family: convoText;
+  src: url(font/NineteenNinetySix-lWzq.ttf);
+}
+
+:root {
+  --animate-duration: 1s;
+  --animate-delay: 0.9s;
+}
+
+body {
+  margin: auto;
+  background-image: url(sprites/bg/BG3.png), url(sprites/bg/BG2.png),
+    url(sprites/bg/BG1.png);
+  background-position: 0 0, 0 0, 0 0;
+  background-size: 25vh;
+  background-repeat: repeat-x;
+  background-color: #34355f;
+  animation: 100s background infinite linear;
+  height: 15vh;
+}
+
+h1 {
+  font-family: h1font, Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: auto;
+  font-size: 2em;
+}
+
+h2 {
+  color: white;
+  font-family: h2font, Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-weight: bold;
+  margin: auto;
+  margin-top: 0.5em;
+  font-size: 1em;
+  margin-bottom: 0.3em;
+  width: 100%;
+}
+
+header {
+  margin: auto;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  top: 0;
+  width: 100%;
+  color: white;
+}
+
+main {
+  margin-top: 5vh;
+}
+
+footer {
+  height: 15vh;
+  bottom: 0;
+  width: 100%;
+  background-color: #34355f;
+}
+
+button {
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  font-size: 0.6em;
+
+  background-color: #3b8e60;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 0.5em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+
+  margin: 2px;
+  margin-top: 0.5em;
+  cursor: pointer;
+  transition-duration: 0.5s;
+  box-shadow: 0 0.3em lightgrey;
+  margin-bottom: 1.25em;
+}
+
+button:hover {
+  background-color: slate;
+}
+
+button:disabled {
+  background-color: grey !important;
+  cursor: not-allowed;
+}
+
+button:active {
+  background-color: #295450;
+  box-shadow: 0 0.05em grey;
+  transition-duration: 0.2s;
+  transform: translateY(0.3em);
+}
+
+a:link {
+  text-decoration: none;
+  color: white;
+}
+a:visited {
+  text-decoration: none;
+  color: white;
+}
+a:hover {
+  text-decoration: none;
+  color: cyan;
+}
+a:active {
+  text-decoration: none;
+  color: cyan;
+}
+
+#socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#socials a {
+  margin: 0.5em;
+  border-bottom: 0.5em black;
+}
+
+#deal-btn {
+  background-color: orange;
+  padding: 0.5em;
+}
+
+#foreground-animation {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: end;
+  height: 20vh;
+  background-image: url(sprites/bg/FG2.png);
+  background-size: 50vh;
+  background-repeat: repeat-x;
+  background-position: bottom, bottom;
+  animation: 200s foreground infinite linear;
+  bottom: 0;
+}
+
+#foreground-animation .credits {
+  color: white;
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  font-size: 0.5em;
+  margin-left: 1em;
+  margin-bottom: 0.5em;
+}
+
+#game-container {
+  margin: auto;
+  width: 75vw;
+  display: flex;
+
+  justify-content: center;
+  flex-flow: column wrap;
+  min-height: 60vh;
+}
+
+#payouts,
+#game-zone,
+#jukebox {
+  text-align: center;
+
+  width: 100%;
+  margin-top: 0.5em;
+}
+
+#payouts {
+  background-color: #3b6b9c;
+  border: 1px solid;
+  border-radius: 15px;
+  border-color: #4e89c6;
+}
+
+#payouts table,
+#payouts tr,
+#payouts td {
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  font-size: 0.875em;
+  width: 75%;
+  margin: auto;
+  border-color: #4e89c6;
+  padding: 0.3em;
+}
+
+#payouts table {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+#jukebox-icons,
+#game-board {
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  background-color: #3b6b9c;
+  border: 1px solid;
+  border-radius: 15px;
+  border-color: #4e89c6;
+  width: 100%;
+}
+
+#jukebox-icons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+#jukebox-display,
+#game-info {
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #3b6b9c;
+  border: 1px solid;
+  border-radius: 15px;
+  border-color: #4e89c6;
+  margin-top: 0.5em;
+  width: 100%;
+}
+
+#card-display,
+#game-interface {
+  font-family: generalText, Arial, Helvetica, sans-serif;
+  padding-top: 0.5em;
+  margin: 0.3em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.card .card-face {
+  width: 50px;
+  height: 100%;
+}
+
+.card .card-face img {
+  width: 100%;
+}
+
+#bard-img img,
+#game-dealer img {
+  padding-left: 0.5em;
+  width: 70px;
+}
+
+#bard-text,
+#dealer-text {
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-content: space-between;
+  margin-left: 0.3em;
+  text-align: left;
+  width: 70%;
+  font-size: 0.6em;
+}
+
+#bard-name,
+#dealer-name {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+#bard-convo,
+#dealer-convo {
+  font-family: convoText, Arial, Helvetica, sans-serif;
+  font-size: 1.5em;
+}
+
+.convo-char {
+  opacity: 0;
+}
+
+@keyframes background {
+  50% {
+    background-position: 200% 5%, 100% 2.5%, 50% 0%;
+  }
+  100% {
+    background-position: 400% 0%, 200% 0%, 100% 0%;
+  }
+}
+
+@keyframes foreground {
+  100% {
+    background-position: 100% bottom;
+  }
+}
