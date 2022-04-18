@@ -252,9 +252,9 @@ bardAudio.src = BARD_VOICE_AUDIO_SRC;
  * @param {number} arrayIndex the index of the music in BARD_SONG ARRAY to preload
  */
 const preloadMusic = (arrayIndex) => {
-  const audio = new Audio();
-  audio.src = BARD_SONG_ARRAY[arrayIndex].src;
-  if (arrayIndex < BARD_SONG_ARRAY.length) {
+  const loadedAudio = new Audio();
+  loadedAudio.src = BARD_SONG_ARRAY[arrayIndex].src;
+  if (arrayIndex < BARD_SONG_ARRAY.length - 1) {
     preloadMusic(arrayIndex + 1);
   }
 };
