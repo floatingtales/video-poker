@@ -253,7 +253,6 @@ bardAudio.src = BARD_VOICE_AUDIO_SRC;
  */
 const preloadMusic = (arrayIndex) => {
   const audio = new Audio();
-  audio.addEventListener('canplaythrough', loadedAudio, false);
   audio.src = BARD_SONG_ARRAY[arrayIndex].src;
   if (arrayIndex < BARD_SONG_ARRAY.length) {
     preloadMusic(arrayIndex + 1);
