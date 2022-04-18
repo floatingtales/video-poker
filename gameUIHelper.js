@@ -248,6 +248,19 @@ bardAudio.src = BARD_VOICE_AUDIO_SRC;
  */
 
 /**
+ * Preloads all music.
+ * @param {number} arrayIndex the index of the music in BARD_SONG ARRAY to preload
+ */
+const preloadMusic = (arrayIndex) => {
+  const audio = new Audio();
+  audio.addEventListener('canplaythrough', loadedAudio, false);
+  audio.src = BARD_SONG_ARRAY[arrayIndex].src;
+  if (arrayIndex < BARD_SONG_ARRAY.length) {
+    preloadMusic(arrayIndex + 1);
+  }
+};
+
+/**
  * updates jukebox music
  */
 const updateMusic = () => {
@@ -331,6 +344,9 @@ const createGameZone = () => {
   gameZone.append(gameBoard, gameInfoDisplay);
 };
 
+/**
+ * Create Footer
+ */
 const createFooter = () => {
   for (let i = 0; i < SOCIALS.length; i += 1) {
     const socialsDiv = document.createElement('img');
@@ -382,6 +398,7 @@ const gameInit = () => {
   updatePayout();
   createGameZone();
   createJukebox();
+  preloadMusic(currentSongIndex);
   updateMusic();
   createFooter();
 };
