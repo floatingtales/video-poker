@@ -54,7 +54,7 @@ const SOCIALS = [
 
 const GOLD_IMAGE = 'sprites/icons/gold.png';
 
-const DEALER_IMAGE = 'sprites/characters/dealer.png';
+const DEALER_IMAGE = 'sprites/characters/bard1.png';
 const BARD_IMAGE = 'sprites/characters/bard2.png';
 
 const CARD_BACK = 'sprites/cards/card-back3.png';
