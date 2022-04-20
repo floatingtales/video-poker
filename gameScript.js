@@ -1,13 +1,4 @@
 /**
- * Sprites used:
- * Background --> stringstar fields by trixie: https://trixelized.itch.io/starstring-fields
- * Foreground --> Free Cute Tileset by Namatnieks: https://aamatniekss.itch.io/free-pixelart-tileset-cute-forest
- * h1 Font ---> Scream When You're Ready To Die by Chequered Ink: https://www.fontspace.com/scream-when-youre-ready-to-die-font-f31092
- * h2 font --> A goblin appears by Chequered Ink: https://www.fontspace.com/a-goblin-appears-font-f30019
- *
- */
-
-/**
  * ==================================================
  * ==================================================
  * GLOBAL VARIABLES
@@ -757,4 +748,10 @@ const checkWin = (handToCheck) => {
   if (checkHighPair(handToCheck)) { return 8; }
 
   return -1;
+};
+
+const probabilityTally = (hand, deckToCompare) => {
+  const winTypeTally = [];
+
+  return winTypeTally;
 };
