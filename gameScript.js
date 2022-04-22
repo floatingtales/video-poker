@@ -618,7 +618,7 @@ const checkHighPair = (handToCheck) => {
  * @param {array} handToCheck array of the card hand object
  * @returns {boolean} True if two pair is present, false otherwise
  */
-const checkTwoPair = (handToCheck) => {
+const checkTwoPairs = (handToCheck) => {
   let counter = 0;
   const handTally = tallyRank(handToCheck);
   for (const cardRank in handTally) {
@@ -743,15 +743,110 @@ const checkWin = (handToCheck) => {
 
   if (checkThreeOfAKind(handToCheck)) { return 6; }
 
-  if (checkTwoPair(handToCheck)) { return 7; }
+  if (checkTwoPairs(handToCheck)) { return 7; }
 
   if (checkHighPair(handToCheck)) { return 8; }
 
   return -1;
 };
 
-const probabilityTally = (hand, deckToCompare) => {
-  const winTypeTally = [];
+/**
+ * Copes hand and strips the hand of any cards that has the toSwap attribute.
+ * @param {array} hand hand to strip
+ * @returns {array} copied, stripped hand of the cards without any cards with the toSwap attribute
+ */
+const stripHand = (hand) => {
+  const clonedHand = hand.slice();
+  for (let i = 0; i < clonedHand.length; i += 1) {
+    // take off any toSwap hands
+    if (clonedHand[i].toSwap) {
+      clonedHand.splice(i, 1);
+    }
+  }
+  return clonedHand;
+};
 
+/**
+ * A function to tally all the possible hands from the hand provided
+ * @param {array} hand Array of all cards in hand, without any cards with the toSwap attribute
+ * @param {array} deckToCompare the current available deck
+ * @returns {object} an object with the probability of the winType values
+ */
+const probabilityTally = (hand, deckToCompare) => {
+  const winTypeTally = {
+    RoyalFlush: 0,
+    StraightFlush: 0,
+    FourofAKind: 0,
+    FullHouse: 0,
+    Flush: 0,
+    Straight: 0,
+    ThreeofAKind: 0,
+    TwoPairs: 0,
+    HighPair: 0,
+    NoWin: 0,
+  };
+
+  const clonedDeck = deckToCompare.slice();
+  const clonedHand = hand.slice();
+
+  // if hand is 5, add +1 to winType of any win
+  if (clonedHand.length === MAX_HAND_LENGTH) {
+    const winIndex = checkWin(clonedHand);
+
+    switch (winIndex) {
+      case 0:
+        winTypeTally.RoyalFlush += 1;
+        break;
+      case 1:
+        winTypeTally.StraightFlush += 1;
+        break;
+      case 2:
+        winTypeTally.FourofAKind += 1;
+        break;
+      case 3:
+        winTypeTally.FullHouse += 1;
+        break;
+      case 4:
+        winTypeTally.Flush += 1;
+        break;
+      case 5:
+        winTypeTally.Straight += 1;
+        break;
+      case 6:
+        winTypeTally.ThreeofAKind += 1;
+        break;
+      case 7:
+        winTypeTally.TwoPairs += 1;
+        break;
+      case 8:
+        winTypeTally.HighPair += 1;
+        break;
+      default:
+        winTypeTally.NoWin += 1;
+    }
+  }
+  // if hand is lesser than 5, do recursion
+  else {
+    // only do recursion when clonedDeck is more than 0, because it can't pop out cards otherwise
+    while (clonedDeck.length > 0) {
+      clonedHand.push(clonedDeck.pop());
+      const recursiveTally = probabilityTally(clonedHand, clonedDeck);
+
+      // remove the extra card so that it will go through the next iteration
+      clonedHand.pop();
+
+      // add the values
+      winTypeTally.RoyalFlush += recursiveTally.RoyalFlush;
+      winTypeTally.StraightFlush += recursiveTally.StraightFlush;
+      winTypeTally.FourofAKind += recursiveTally.FourofAKind;
+      winTypeTally.FullHouse += recursiveTally.FullHouse;
+      winTypeTally.Flush += recursiveTally.Flush;
+      winTypeTally.Straight += recursiveTally.Straight;
+      winTypeTally.ThreeofAKind += recursiveTally.ThreeofAKind;
+      winTypeTally.TwoPairs += recursiveTally.TwoPairs;
+      winTypeTally.HighPair += recursiveTally.HighPair;
+      winTypeTally.NoWin += recursiveTally.NoWin;
+    }
+  }
   return winTypeTally;
 };
