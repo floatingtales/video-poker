@@ -824,29 +824,30 @@ const probabilityTally = (hand, deckToCompare) => {
       default:
         winTypeTally.NoWin += 1;
     }
+    return winTypeTally;
   }
+
   // if hand is lesser than 5, do recursion
-  else {
-    // only do recursion when clonedDeck is more than 0, because it can't pop out cards otherwise
-    while (clonedDeck.length > 0) {
-      clonedHand.push(clonedDeck.pop());
-      const recursiveTally = probabilityTally(clonedHand, clonedDeck);
+  // only do recursion when clonedDeck is more than 0, because it can't pop out cards otherwise
+  while (clonedDeck.length > 0) {
+    clonedHand.push(clonedDeck.pop());
+    const recursiveTally = probabilityTally(clonedHand, clonedDeck);
 
-      // remove the extra card so that it will go through the next iteration
-      clonedHand.pop();
+    // remove the extra card so that it will go through the next iteration
+    clonedHand.pop();
 
-      // add the values
-      winTypeTally.RoyalFlush += recursiveTally.RoyalFlush;
-      winTypeTally.StraightFlush += recursiveTally.StraightFlush;
-      winTypeTally.FourofAKind += recursiveTally.FourofAKind;
-      winTypeTally.FullHouse += recursiveTally.FullHouse;
-      winTypeTally.Flush += recursiveTally.Flush;
-      winTypeTally.Straight += recursiveTally.Straight;
-      winTypeTally.ThreeofAKind += recursiveTally.ThreeofAKind;
-      winTypeTally.TwoPairs += recursiveTally.TwoPairs;
-      winTypeTally.HighPair += recursiveTally.HighPair;
-      winTypeTally.NoWin += recursiveTally.NoWin;
-    }
+    // add the values
+    winTypeTally.RoyalFlush += recursiveTally.RoyalFlush;
+    winTypeTally.StraightFlush += recursiveTally.StraightFlush;
+    winTypeTally.FourofAKind += recursiveTally.FourofAKind;
+    winTypeTally.FullHouse += recursiveTally.FullHouse;
+    winTypeTally.Flush += recursiveTally.Flush;
+    winTypeTally.Straight += recursiveTally.Straight;
+    winTypeTally.ThreeofAKind += recursiveTally.ThreeofAKind;
+    winTypeTally.TwoPairs += recursiveTally.TwoPairs;
+    winTypeTally.HighPair += recursiveTally.HighPair;
+    winTypeTally.NoWin += recursiveTally.NoWin;
   }
+
   return winTypeTally;
 };
